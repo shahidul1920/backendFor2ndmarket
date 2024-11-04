@@ -5,6 +5,8 @@ require('dotenv').config()
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
+//middleware
+
 
 
 const uri = `mongodb+srv://${process.env.MONGO_userID}:${process.env.MONGO_pass}@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -17,13 +19,18 @@ const client = new MongoClient(uri, {
   }
 });
 
+const user = {name: "shakil", email: "shakil@basmaki.com"}
+
 async function run() {
   try {
     await client.connect();
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    const database = client.db("ProductsOfBC")
+    const userCollection = database.collection("Users");
+    userCollection.insertOne(user);
+
+     
   } finally {
-    await client.close();
+    //await client.close();
   }
 }
 run().catch(console.dir);
