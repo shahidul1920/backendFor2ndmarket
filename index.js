@@ -38,11 +38,18 @@ async function run() {
       res.send(allProducts)
     })
 
+    app.get("/dashboard", async(req,res)=>{
+      console.log('hello fuck');
+      res.send('Hello sweet World!')
+    })
+
     //post product
     app.post("/products", async(req, res)=>{
       const upcomingProd = req.body;
       const result = await productCollection.insertOne(upcomingProd);
       res.send(result);
+      console.log(req);
+      
     })
 
      
