@@ -38,9 +38,10 @@ async function run() {
       res.send(allProducts)
     })
 
-    app.get("/dashboard", async(req,res)=>{
-      console.log('hello fuck');
-      res.send('Hello sweet World!')
+    app.get("/electronics", async(req,res)=>{
+      const findCat = {category: "Electronics"}
+      const searchCat = await productCollection.findOne(findCat)
+      res.send(searchCat)
     })
 
     //post product
