@@ -40,7 +40,7 @@ async function run() {
 
     app.get("/electronics", async(req,res)=>{
       const findCat = {category: "Electronics"}
-      const searchCat = await productCollection.findOne(findCat)
+      const searchCat = await productCollection.find(findCat).toArray();
       res.send(searchCat)
     })
 
