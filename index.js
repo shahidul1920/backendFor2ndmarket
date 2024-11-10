@@ -38,6 +38,28 @@ async function run() {
       res.send(allProducts)
     })
 
+    app.get("/products/:proId", async(req, res)=>{
+      const upUser = req.params.proId;
+      const search = {uploaderID: upUser};
+      const searchUser = await productCollection.find(search).toArray();
+      res.send(searchUser)
+    })
+
+    //post user
+    app.post("/users", async (req, res)=>{
+      const userFromFirebase = req.body;
+      const result = await userCollection.insertOne(userFromFirebase)
+      res.send(result);
+      console.log(result);
+      
+    })
+
+    app.get("/users", async (req, res)=>{
+      const query = {};
+      const allUserInfo = await userCollection.find(query).toArray()
+      res.send(allUserInfo)
+    })
+
     app.get("/electronics", async(req,res)=>{
       const findCat = {category: "Electronics"}
       const searchCat = await productCollection.find(findCat).toArray();
