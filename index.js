@@ -27,6 +27,7 @@ async function run() {
     const database = client.db("ProductsOfBC")
     const userCollection = database.collection("Users");
     const productCollection = database.collection("Products");
+    const feedbackCollection = database.collection("feedback");
     //userCollection.insertOne(user);
     //productCollection.insertOne(user);
 
@@ -52,6 +53,13 @@ async function run() {
       res.send(result);
       console.log(result);
       
+    })
+
+    app.post("/feedback", async (req, res)=>{
+      const feedbackFromUser = req.body;
+      const result = feedbackCollection.insertOne(feedbackFromUser);
+      res.send(result);
+      console.log(result);
     })
 
     app.get("/users", async (req, res)=>{
