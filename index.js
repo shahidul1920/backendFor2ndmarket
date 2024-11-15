@@ -11,7 +11,8 @@ app.use(cors());
 app.use(express.json())
 
 
-const uri = `mongodb+srv://${process.env.MONGO_userID}:${process.env.MONGO_pass}@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+//const uri = `mongodb+srv://${process.env.MONGO_userID}:${process.env.MONGO_pass}@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+const uri = "mongodb+srv://marketbuyNsell:WFOU5zlSaIdrS8qx@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -51,7 +52,6 @@ async function run() {
       const userFromFirebase = req.body;
       const result = await userCollection.insertOne(userFromFirebase)
       res.send(result);
-      console.log(result);
       
     })
 
@@ -59,7 +59,6 @@ async function run() {
       const feedbackFromUser = req.body;
       const result = await feedbackCollection.insertOne(feedbackFromUser);
       res.send(result);
-      console.log(result);
     })
 
     app.get("/users", async (req, res)=>{
@@ -68,8 +67,9 @@ async function run() {
       res.send(allUserInfo)
     })
 
-    app.get("/electronics", async(req,res)=>{
-      const findCat = {category: "Electronics"}
+    app.get("/shop/:id", async(req,res)=>{
+      const productFilter = req.params.id.charAt(0).toUpperCase() + req.params.id.slice(1).toLowerCase();
+      const findCat = {category: productFilter}
       const searchCat = await productCollection.find(findCat).toArray();
       res.send(searchCat)
     })
@@ -78,9 +78,7 @@ async function run() {
     app.post("/products", async(req, res)=>{
       const upcomingProd = req.body;
       const result = await productCollection.insertOne(upcomingProd);
-      res.send(result);
-      console.log(req);
-      
+      res.send(result);      
     })
 
      
@@ -91,7 +89,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get('/', (req, res) => {
-  res.send('Hello fucking World!')
+  res.send('New World!')
 })
 
 
