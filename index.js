@@ -57,7 +57,7 @@ async function run() {
 
     app.post("/feedback", async (req, res)=>{
       const feedbackFromUser = req.body;
-      const result = feedbackCollection.insertOne(feedbackFromUser);
+      const result = await feedbackCollection.insertOne(feedbackFromUser);
       res.send(result);
       console.log(result);
     })
