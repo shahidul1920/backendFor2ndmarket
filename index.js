@@ -11,8 +11,7 @@ app.use(cors());
 app.use(express.json())
 
 
-//const uri = `mongodb+srv://${process.env.MONGO_userID}:${process.env.MONGO_pass}@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-const uri = "mongodb+srv://marketbuyNsell:WFOU5zlSaIdrS8qx@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = `mongodb+srv://${process.env.MONGO_userID}:${process.env.MONGO_pass}@cluster0.kfgpk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 const client = new MongoClient(uri, {
   serverApi: {
