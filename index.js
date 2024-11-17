@@ -55,9 +55,9 @@ async function run() {
     })
 
     //get a single product
-    app.get("/product/:name/:id", async(req, res)=>{
+    app.get("/product/:id", async(req, res)=>{
       const id = req.params.id;
-      const findIdProd = {_Id: new ObjectId(id)};
+      const findIdProd = {_id: new ObjectId(id)};
       const searchProd = await productCollection.findOne(findIdProd);
       res.send(searchProd);
     })
