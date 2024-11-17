@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors')
 
 
@@ -52,6 +52,14 @@ async function run() {
       const result = await userCollection.insertOne(userFromFirebase)
       res.send(result);
       
+    })
+
+    //get a single product
+    app.get("/product/:name/:id", async(req, res)=>{
+      const id = req.params.id;
+      const findIdProd = {_Id: new ObjectId(id)};
+      const searchProd = await productCollection.findOne(findIdProd);
+      res.send(searchProd);
     })
 
     app.post("/feedback", async (req, res)=>{
